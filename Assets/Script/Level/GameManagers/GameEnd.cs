@@ -15,7 +15,7 @@ public class GameOverChecker : MonoBehaviour
             GameOver();
         }
 
-        if (ScoreManager.instance.score >= 10 && !won)
+        if (ScoreManager.instance.score >= 50 && !won)
         {
             YouWon();
         }
