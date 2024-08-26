@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
-        // Subscribe to the DataLoaded event
+
         if (JsonFetcher.Instance != null)
         {
             JsonFetcher.Instance.DataLoaded += OnDataLoaded;
@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour
 
     private void OnDataLoaded()
     {
-        // Set the speed after the data is loaded
+
         moveSpeed = JsonFetcher.Instance.gameData.player_data.speed;
         Debug.Log("Speed loaded: " + moveSpeed);
     }

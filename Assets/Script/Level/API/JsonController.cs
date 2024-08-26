@@ -7,7 +7,7 @@ public class JsonFetcher : MonoBehaviour
     public static JsonFetcher Instance { get; private set; }
 
     public GameData gameData;
-
+    public bool loaded = false;
     private string jsonUrl = "https://s3.ap-south-1.amazonaws.com/superstars.assetbundles.testbuild/doofus_game/doofus_diary.json";
 
     public delegate void OnDataLoaded();
@@ -49,7 +49,7 @@ public class JsonFetcher : MonoBehaviour
 
             Debug.Log("Player Speed: " + gameData.player_data.speed);
 
-
+            loaded = true;
             DataLoaded?.Invoke();
         }
     }

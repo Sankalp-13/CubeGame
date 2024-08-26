@@ -1,15 +1,19 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class PlatformSpawner : MonoBehaviour
 {
-    public GameObject platform1; 
-    public GameObject platform2Prefab;  
-    public float offset = 5.0f;  
-    public float spawnDelay = 2.5f;  
+    public GameObject platform1;
+    public GameObject platform2Prefab;
+    public float offset = 5.0f;
+    public float spawnDelay = 2.5f;
     public float minDestroyTime = 14.0f;
     public float maxDestroyTime = 15.0f;
-    public int platform1LastDirection=0;
+    public int platform1LastDirection = 0;
+    public float spawnDuration = 4.0f;
+    private float elapsedTime = 0f;
+    private TextMeshPro timerText;
 
     void Start()
     {
@@ -17,12 +21,28 @@ public class PlatformSpawner : MonoBehaviour
         {
             JsonFetcher.Instance.DataLoaded += OnDataLoaded;
 
-            Destroy(platform1, Random.Range(minDestroyTime, maxDestroyTime));
-            StartCoroutine(SpawnPlatform2WithDelay());
+            if (JsonFetcher.Instance.loaded)
+            {
+
+                spawnDuration = Random.Range(minDestroyTime, maxDestroyTime);
+                elapsedTime = spawnDuration;
+                Destroy(platform1, spawnDuration);
+                StartCoroutine(SpawnPlatform2WithDelay());
+                timerText = GetComponentInChildren<TextMeshPro>();
+            }
         }
         else
         {
             Debug.LogError("JsonFetcher instance is null.");
+        }
+    }
+
+    void Update()
+    {
+        elapsedTime -= Time.deltaTime;
+        if (timerText != null)
+        {
+            timerText.text = elapsedTime.ToString("0.00");
         }
     }
 
@@ -32,7 +52,11 @@ public class PlatformSpawner : MonoBehaviour
         maxDestroyTime = JsonFetcher.Instance.gameData.pulpit_data.max_pulpit_destroy_time;
         minDestroyTime = JsonFetcher.Instance.gameData.pulpit_data.min_pulpit_destroy_time;
         spawnDelay = JsonFetcher.Instance.gameData.pulpit_data.pulpit_spawn_time;
-        
+        spawnDuration = Random.Range(minDestroyTime, maxDestroyTime);
+        elapsedTime = spawnDuration;
+        Destroy(platform1, spawnDuration);
+        StartCoroutine(SpawnPlatform2WithDelay());
+        timerText = GetComponentInChildren<TextMeshPro>();
 
         Debug.Log("max des: " + maxDestroyTime);
         Debug.Log("min des: " + minDestroyTime);
@@ -63,9 +87,9 @@ public class PlatformSpawner : MonoBehaviour
         new Vector3(0, 0, -offset)  // Backward
     };
 
-            int r ;
+            int r;
             int lastDir = platform1.GetComponent<PlatformSpawner>().platform1LastDirection;
-            while(true)
+            while (true)
             {
                 r = Random.Range(0, 4);
                 if ((r == 0 && lastDir != 1) || (r == 1 && lastDir != 0) || (r == 2 && lastDir != 3) || (r == 3 && lastDir != 2))
@@ -73,7 +97,7 @@ public class PlatformSpawner : MonoBehaviour
                     break;
                 }
             }
-           // Debug.Log(r);
+            // Debug.Log(r);
 
             Vector3 platform2Position = platform1Position + nextSpawnOffset[r];
 
@@ -94,7 +118,7 @@ public class PlatformSpawner : MonoBehaviour
     IEnumerator ScalePlatform(GameObject platform, float duration)
     {
         Vector3 initialScale = Vector3.zero;
-        Vector3 finalScale = Vector3.one*0.8f;
+        Vector3 finalScale = Vector3.one * 0.8f;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)

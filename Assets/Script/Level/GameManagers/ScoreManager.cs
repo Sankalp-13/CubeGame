@@ -6,11 +6,11 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
     public int score = 0;
-    public TextMeshProUGUI scoreText;  // Reference to a UI Text component to display score
+    public TextMeshProUGUI scoreText;
 
     private void Awake()
     {
-        // Ensure only one instance of ScoreManager exists
+
         if (instance == null)
         {
             instance = this;
