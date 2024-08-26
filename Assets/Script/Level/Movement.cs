@@ -28,9 +28,9 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime*1.1f;
-        float moveZ = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime * 1.1f;
+        float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime*1.3f;
+        float moveZ = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime * 1.3f;
 
-        transform.Translate(new Vector3(moveX, 0, moveZ));
+        transform.Translate(new Vector3(moveX, 0f, moveZ));
     }
 }

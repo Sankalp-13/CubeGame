@@ -79,6 +79,7 @@ public class PlatformSpawner : MonoBehaviour
 
 
             GameObject platform2 = Instantiate(platform2Prefab, platform2Position, Quaternion.identity) as GameObject;
+            StartCoroutine(ScalePlatform(platform2, 1.0f));
             platform2.GetComponent<PlatformSpawner>().platform1LastDirection = r;
 
 
@@ -87,5 +88,22 @@ public class PlatformSpawner : MonoBehaviour
         {
             Debug.LogError("Platform1 or Platform2Prefab is not assigned.");
         }
+    }
+
+
+    IEnumerator ScalePlatform(GameObject platform, float duration)
+    {
+        Vector3 initialScale = Vector3.zero;
+        Vector3 finalScale = Vector3.one*0.8f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            platform.transform.localScale = Vector3.Lerp(initialScale, finalScale, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        platform.transform.localScale = finalScale;
     }
 }
