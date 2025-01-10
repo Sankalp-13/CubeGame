@@ -1,11 +1,20 @@
-# HitWicketTask
- 
+# CubeGame
+
+ Made in 5 hours as a challenge.
 
 
 
-https://github.com/user-attachments/assets/2c8f128a-add1-401c-9bb8-deb5a89ba791
+https://github.com/user-attachments/assets/d4bb4677-c8b5-4334-a431-389a8376123c
 
 
-https://github.com/user-attachments/assets/62e1e3a6-f244-468d-894d-2fc6f1f00c2b
+https://github.com/user-attachments/assets/60047dc6-3f0d-45b8-b301-29344f3f92b6
+
+
+
+
+Uploading CubeGame Platforms.mp4…
+
+
+
 
 *Finish set at 10 for demonstration*
